@@ -2,10 +2,19 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="teal"
+      light
+      dense
+      flat
+      fixed
       dark
     >
-      <div class="d-flex align-center">
+    <v-app-bar-nav-icon>
+      <v-btn to="/">
+      <v-icon>mdi-lock</v-icon>
+      </v-btn>
+    </v-app-bar-nav-icon>
+      <!-- <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -23,22 +32,24 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
         />
-      </div>
+      </div> -->
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn to="user" dark text rounded>
+        signup
+        <v-icon>mdi-account-outline</v-icon>
+      </v-btn>
+      <v-divider vertical></v-divider>
+      <v-btn to="auth" dark text rounded>
+        sign in
+        <v-icon>mdi-account-plus-outline</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <!-- <HelloWorld/> -->
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
