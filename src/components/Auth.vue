@@ -83,7 +83,9 @@ export default {
             showPassword: false,
             email: null,
             emailRules: [
-            v => !!v || 'E-mail is required'],
+            v => !!v || 'E-mail is required',
+            v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+            ],
             password: null,
             passwordRules:[v => !!v || 'Password is required'],
             errorMessages: '',  
@@ -95,19 +97,9 @@ export default {
             this.$refs.form.validate()
         },
         login(){
-        //     this.loading = true
-        //    axios.post('http://localhost:3000/api/auth', {email: this.email, password: this.password})
-        //     .then((response) => {
-        //     this.loading = false
-        //         console.log('satus code::::', response.status)
-                                
-        //     }).catch(err => {
-        //         this.snackbar = true
-        //         this.loading = false
-        //         console.log(err)
-        //     })
-
-            fetch('http://localhost:3000/api/auth',{
+            this.loading = true
+           setTimeout(()=> {
+                fetch('http://localhost:3000/api/auth',{
                 "method": "POST",
                 "body": JSON.stringify({email: this.email, password: this.password}),
                 "headers": { "Content-type": "application/json; charset=UTF-8" }    
@@ -115,14 +107,20 @@ export default {
                 if (response.status === 400) {
                     this.errorMessages = "Invalid email or password!"
                     this.snackbar = true
+                    this.loading = false
                     return
                 }
-                console.log(response);
+                response.json().then((user) => {
+                    this.loading = false
+                    this.$store.commit('setAuth', user)
+                    this.$router.push({name: "Home"})
+                })
             }).catch((err) => {
                 this.errorMessages = "Something Failed try again!"
                 this.snackbar = true
-                console.log(err)
+                this.loading = false
                 })
+           },2000)
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
+    <!-- <v-app-bar
       app
       color="teal"
       light
@@ -13,7 +13,7 @@
       <v-btn to="/">
       <v-icon>mdi-lock</v-icon>
       </v-btn>
-    </v-app-bar-nav-icon>
+    </v-app-bar-nav-icon> -->
       <!-- <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -34,38 +34,50 @@
         />
       </div> -->
 
-      <v-spacer></v-spacer>
+      <!-- <v-spacer></v-spacer>
 
-      <v-btn to="user" dark text rounded>
+      <v-btn v-if="!loggedIn" to="user" dark text rounded>
         signup
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
       <v-divider vertical></v-divider>
-      <v-btn to="auth" dark text rounded>
+      <v-btn v-if="!loggedIn" to="auth" dark text rounded>
         sign in
         <v-icon>mdi-account-plus-outline</v-icon>
       </v-btn>
-    </v-app-bar>
+      <v-divider v-if="loggedIn" vertical></v-divider>
+      <v-btn v-if="loggedIn" to="profile" dark text rounded>
+        profile
+        <v-icon>mdi-account-details-outline</v-icon>
+      </v-btn>
+      <v-btn v-if="loggedIn" @click="logout" to="auth" dark text rounded>
+        logout
+        <v-icon>mdi-switch-off</v-icon>
+      </v-btn>
+    </v-app-bar> -->
 
     <v-content>
-      <!-- <HelloWorld/> -->
       <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
   data: () => ({
     //
   }),
+  computed:{
+    loggedIn(){
+      return this.$store.getters.loggedIn
+    }
+  },
+  methods:{
+    logout(){
+      this.$store.commit('unsetAuth')
+    }
+  }
 };
 </script>
